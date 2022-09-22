@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">APOD Test App</string>
+    <string name="nasa_s_picture_of_the_day">NASA\'s picture of the day</string>
+</resources>
