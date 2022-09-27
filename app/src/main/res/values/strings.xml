@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">APOD Test App</string>
     <string name="nasa_s_picture_of_the_day">NASA\'s picture of the day</string>
+    <string name="menu_item_info">Info</string>
+    <string name="imageview_contentdescription_astronomy_picture_of_the_day">Astronomy Picture Of the Day</string>
 </resources>
