@@ -47,6 +47,27 @@
                 android:contentDescription="@string/imageview_contentdescription_astronomy_picture_of_the_day"
                 android:padding="10dp"/>
 
+            <RelativeLayout
+                android:id="@+id/relativelayout_webview"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="10dp">
+
+                <WebView
+                    android:id="@+id/webview_apod"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/buttonPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_text_play_video"
+                android:visibility="gone"
+                android:padding="10dp"/>
+
             <TextView
                 android:id="@+id/textviewDescription"
                 android:layout_width="match_parent"
