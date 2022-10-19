@@ -2,6 +2,7 @@ package com.thpir.apodtestapp
 
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ImageView
@@ -50,6 +51,8 @@ class InformationActivity : AppCompatActivity() {
             Glide.with(this)
                 .asDrawable()
                 .load(apodUrl)
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.error_loading)
                 .into(imageviewApod)
         } else {
             // Hide the imageview and set the webview to visible

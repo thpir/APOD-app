@@ -1,7 +1,10 @@
 package com.thpir.apodtestapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // Set the toolbar
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
@@ -46,7 +50,40 @@ class MainActivity : AppCompatActivity() {
         webviewApod = findViewById(R.id.webview_apod)
         toolbar = findViewById(R.id.my_toolbar)
 
-        // Send a get request to the APOD API and extract values from the JSON that was returned
+        // Check if internet is available.
+        // Send a get request to the APOD API and extract values from the JSON that was returned.
+        if (isInternetAvailable()) {
+            sendRequest();
+        } else {
+            Toast.makeText(this, "No internet connection available...", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun isInternetAvailable(): Boolean {
+        // register activity with the connectivity manager service
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // Returns a Network object corresponding to
+        // the currently active default data network.
+        val network = connectivityManager.activeNetwork ?: return false
+
+        // Representation of the capabilities of an active network.
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when {
+            // Indicates this network uses a Wi-Fi transport,
+            // or WiFi has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+            // Indicates this network uses a Cellular transport. or
+            // Cellular has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+            // else return false
+            else -> false
+        }
+    }
+
+    private fun sendRequest() {
         val queue = Volley.newRequestQueue(this)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, apiURL, null, {response ->
             val apodTitle = response.getString("title")
@@ -68,6 +105,8 @@ class MainActivity : AppCompatActivity() {
                 Glide.with(this)
                     .asDrawable()
                     .load(apodHdImage)
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.error_loading)
                     .into(imageviewApod)
             } else {
                 // Change the actionbar color to black to prevent overlaying text
@@ -90,7 +129,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     // Create the options menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -102,16 +140,27 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Open the information activity and pass data to it
         if (item.itemId == R.id.action_information) {
-            val intent = Intent(this, InformationActivity::class.java).apply {
-                // pass APOD data
-                putExtra("title", apodTitleText)
-                putExtra("date", apodDateText)
-                putExtra("url", apodUrl)
-                putExtra("description", apodDescriptionText)
-                putExtra("type", apodType)
+            if (isInternetAvailable()) {
+                val intent = Intent(this, InformationActivity::class.java).apply {
+                    // pass APOD data
+                    putExtra("title", apodTitleText)
+                    putExtra("date", apodDateText)
+                    putExtra("url", apodUrl)
+                    putExtra("description", apodDescriptionText)
+                    putExtra("type", apodType)
+                }
+                startActivity(intent)
+                return true
+            } else {
+                Toast.makeText(this, "No internet connection available...", Toast.LENGTH_SHORT).show()
             }
-            startActivity(intent)
-            return true
+        } else if (item.itemId == R.id.action_refresh) {
+            if (isInternetAvailable()) {
+                sendRequest();
+                Toast.makeText(this, "Page reloaded", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "No internet connection available...", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return super.onOptionsItemSelected(item)
