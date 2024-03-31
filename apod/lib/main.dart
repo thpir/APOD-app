@@ -78,8 +78,9 @@ class _MainAppState extends State<MainApp> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .push(MaterialPageRoute(
-                                                builder: (context) => FullScreen(
-                                                    imageUrl: apod.url),
+                                                builder: (context) =>
+                                                    FullScreen(
+                                                        imageUrl: apod.url),
                                               ));
                                             },
                                             style: ButtonStyle(
