@@ -1,7 +1,7 @@
 name: apod
-description: "A new Flutter project."
+description: "Receive the daily astronomy picture of the day."
 publish_to: 'none'
-version: 2.0.0
+version: 2.0.2
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -9,10 +9,12 @@ environment:
 dependencies:
   change_app_package_name: ^1.1.0
   envied: ^0.5.3
+  file_picker: ^8.0.0+1
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
   http: ^1.2.1
+  path: ^1.9.0
   youtube_player_flutter: ^9.0.0
 
 dev_dependencies:

@@ -1,3 +1,4 @@
+import 'package:apod/utils/file_saver.dart';
 import 'package:flutter/material.dart';
 
 class FullScreen extends StatelessWidget {
@@ -15,23 +16,36 @@ class FullScreen extends StatelessWidget {
               child: Image.network(imageUrl),
             ),
             Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconButton.filled(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.black54),
-                    ),
+                alignment: Alignment.topLeft,
+                child: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  leading: IconButton(
                     icon: const Icon(
-                      Icons.arrow_back_ios_rounded,
+                      Icons.arrow_back_ios_new_rounded,
                       color: Colors.white,
-                    )),
-              ),
-            )
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.download_rounded,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        FileSaver().saveImage(imageUrl).then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(value!),
+                            duration: const Duration(seconds: 2),
+                          ));
+                        });
+                      },
+                    )
+                  ],
+                ))
           ],
         ),
       ),
