@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Android.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.Android.AppWidgetContainer"
+    android:padding="0dp">
+
+    <ImageView
+        android:id="@+id/apod_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/apod_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:paddingVertical="@dimen/text_padding"
+            android:paddingHorizontal="@dimen/text_padding_extra"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:background="@color/text_background"
+            android:textColor="@color/text_foreground"/>
+
+    </LinearLayout>
+</RelativeLayout>
