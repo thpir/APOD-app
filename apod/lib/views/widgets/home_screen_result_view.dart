@@ -1,7 +1,8 @@
 import 'package:apod/models/apod.dart';
 import 'package:apod/views/widgets/home_screen_apod_actions.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+// import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class HomeScreenResultView extends StatefulWidget {
   final Apod result;
@@ -17,18 +18,27 @@ class _HomeScreenResultViewState extends State<HomeScreenResultView> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    //controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.result.mediaType == 'video') {
-      var youtubeId = YoutubePlayer.convertUrlToId(widget.result.url);
-      controller = YoutubePlayerController(
-        initialVideoId: youtubeId!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          mute: true,
+      //var youtubeId = YoutubePlayer.convertUrlToId(widget.result.url);
+      var youtubeId = YoutubePlayerController.convertUrlToId(widget.result.url);
+      // controller = YoutubePlayerController(
+      //   initialVideoId: youtubeId!,
+      //   flags: const YoutubePlayerFlags(
+      //     autoPlay: false,
+      //     mute: true,
+      //   ),
+      // );
+      controller = YoutubePlayerController.fromVideoId(
+        videoId: youtubeId!,
+        autoPlay: false,
+        params: const YoutubePlayerParams(
+          showControls: true,
+          showFullscreenButton: true,
         ),
       );
     }
