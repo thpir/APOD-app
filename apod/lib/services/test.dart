@@ -1,16 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService extends ChangeNotifier {
   final FlutterLocalNotificationsPlugin _flutterPlugin =
       FlutterLocalNotificationsPlugin();
-  // final AndroidFlutterLocalNotificationsPlugin _androidPlugin =
-  //     AndroidFlutterLocalNotificationsPlugin();
-  // final IOSFlutterLocalNotificationsPlugin _iosPlugin =
-  //     IOSFlutterLocalNotificationsPlugin();
   static const int dailyNotificationId = 0;
   static const String channelId = 'daily_apod_notif';
   static const String channelName = 'Daily notification';
@@ -19,7 +14,6 @@ class NotificationService extends ChangeNotifier {
   NotificationService() {
     initNotifications();
     checkPendingNotifications();
-    //checkGeneralNotificationPermission();
     if (Platform.isIOS) checkIosNotificationPermissions();
     if (Platform.isAndroid) checkAndroidNotificationPermissions();
   }
@@ -41,16 +35,18 @@ class NotificationService extends ChangeNotifier {
     );
   }
 
-  Future<void> checkGeneralNotificationPermission() async {
-    var permissionStatus = await Permission.notification.status;
-    if (permissionStatus.isDenied || permissionStatus.isPermanentlyDenied) {
-      await Permission.notification.request().then((value) {
-        if (value.isDenied || value.isPermanentlyDenied) {
-          _dailyNotificationScheduled = false;
+  Future<void> checkPendingNotifications() async {
+    List<PendingNotificationRequest> pendingNotificationRequests =
+        await _flutterPlugin.pendingNotificationRequests();
+    if (pendingNotificationRequests.isNotEmpty) {
+      for (PendingNotificationRequest pendingNotificationRequest
+          in pendingNotificationRequests) {
+        if (pendingNotificationRequest.id == dailyNotificationId) {
+          _dailyNotificationScheduled = true;
+          notifyListeners();
         }
-      });
+      }
     }
-    notifyListeners();
   }
 
   Future<void> checkIosNotificationPermissions() async {
@@ -89,39 +85,6 @@ class NotificationService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkPendingNotifications() async {
-    List<PendingNotificationRequest> pendingNotificationRequests =
-        await _flutterPlugin.pendingNotificationRequests();
-    if (pendingNotificationRequests.isNotEmpty) {
-      for (PendingNotificationRequest pendingNotificationRequest
-          in pendingNotificationRequests) {
-        if (pendingNotificationRequest.id == dailyNotificationId) {
-          _dailyNotificationScheduled = true;
-          notifyListeners();
-        }
-      }
-    }
-  }
-
-  Future<void> cancelDailyNotification() async {
-    await _flutterPlugin.cancelAll();
-    _dailyNotificationScheduled = false;
-    notifyListeners();
-  }
-
-  Future<void> scheduleDailyNotification() async {
-    await _flutterPlugin.periodicallyShow(
-        dailyNotificationId,
-        'Astronomy Picture of the Day',
-        'Check out the latest APOD',
-        RepeatInterval.daily,
-        notificationDetails(),
-        androidScheduleMode: AndroidScheduleMode.alarmClock);
-    _dailyNotificationScheduled = true;
-
-    notifyListeners();
-  }
-
   NotificationDetails notificationDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
@@ -133,15 +96,6 @@ class NotificationService extends ChangeNotifier {
             "Daily notification to inform you about the latest APOD",
         icon: '@mipmap/ic_launcher',
       ),
-    );
-  }
-
-  Future<void> showNotification() async {
-    await _flutterPlugin.show(
-      dailyNotificationId,
-      'Astronomy Picture of the Day',
-      'Check out the latest APOD',
-      notificationDetails(),
     );
   }
 }
