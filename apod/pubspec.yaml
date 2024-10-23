@@ -1,7 +1,7 @@
 name: apod
 description: "Receive the daily astronomy picture of the day."
 publish_to: 'none'
-version: 2.0.4
+version: 2.0.5
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -23,7 +23,6 @@ dependencies:
   provider: ^6.1.2
   timezone: ^0.9.4
   youtube_player_iframe: ^5.1.2
-  #youtube_player_flutter: ^9.0.1
 
 dev_dependencies:
   flutter_test:
