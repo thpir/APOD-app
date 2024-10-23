@@ -2,7 +2,7 @@ class Apod {
   final String title;
   final String date;
   final String explanation;
-  final String url;
+  final String? url;
   final String mediaType;
 
   Apod(

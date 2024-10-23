@@ -73,12 +73,12 @@ class NotificationService extends ChangeNotifier {
   }
 
   Future<void> checkAndroidNotificationPermissions() async {
-    final AndroidFlutterLocalNotificationsPlugin _androidPlugin =
+    final AndroidFlutterLocalNotificationsPlugin androidPlugin =
         AndroidFlutterLocalNotificationsPlugin();
     var scheduleExactAlarms =
-        await _androidPlugin.requestExactAlarmsPermission();
+        await androidPlugin.requestExactAlarmsPermission();
     var showNotifications =
-        await _androidPlugin.requestNotificationsPermission();
+        await androidPlugin.requestNotificationsPermission();
     if (scheduleExactAlarms == null || showNotifications == null) {
       _dailyNotificationScheduled = false;
     } else {

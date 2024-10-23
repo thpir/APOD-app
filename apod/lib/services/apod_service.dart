@@ -6,16 +6,16 @@ import 'package:http/http.dart' as http;
 
 class ApodService {
   Future<Apod> getAPOD() async {
-    final response = await http.get(
-        Uri.parse('https://api.nasa.gov/planetary/apod?api_key=${Env.key1}'));
-    if (response.statusCode == 200) {
-      try {
+    try {
+      final response = await http.get(
+          Uri.parse('https://api.nasa.gov/planetary/apod?api_key=${Env.key1}'));
+      if (response.statusCode == 200) {
         return Apod.fromJson(jsonDecode(response.body));
-      } catch (e) {
-        rethrow;
+      } else {
+        throw Exception('APOD-service returned status: ${response.statusCode}');
       }
-    } else {
-      throw Exception('Failed to load APOD');
+    } catch (e) {
+      throw Exception('An error occurred: $e');
     }
   }
 }
