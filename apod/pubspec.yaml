@@ -1,7 +1,7 @@
 name: apod
 description: "Receive the daily astronomy picture of the day."
 publish_to: 'none'
-version: 2.0.5
+version: 2.1.0+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
