@@ -1,4 +1,4 @@
-import 'package:apod/models/apod.dart';
+import 'package:apod/domain/models/apod.dart';
 import 'package:home_widget/home_widget.dart';
 
 class HomeWidgetHelper {

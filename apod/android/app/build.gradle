@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.thpir.apodapp"
-    compileSdk 34
+    compileSdk 35
     ndkVersion "25.1.8937393"
 
     compileOptions {
@@ -77,4 +77,5 @@ dependencies {
     /* Flutter local notifications */
     implementation 'androidx.glance:glance-appwidget:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }
