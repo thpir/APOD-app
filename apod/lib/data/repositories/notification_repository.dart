@@ -28,7 +28,7 @@ class NotificationRepository implements NotificationInterface {
         notification.bodyText,
         RepeatInterval.daily,
         _notificationDetails(notification),
-        androidScheduleMode: AndroidScheduleMode.alarmClock);
+        androidScheduleMode: AndroidScheduleMode.alarmClock,);
     } else {
       throw Exception('Notification permissions not granted');
     }
