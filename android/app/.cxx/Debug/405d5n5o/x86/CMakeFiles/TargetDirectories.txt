@@ -1,0 +1,2 @@
+/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/APOD-app/apod/android/app/.cxx/Debug/405d5n5o/x86/CMakeFiles/rebuild_cache.dir
+/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/APOD-app/apod/android/app/.cxx/Debug/405d5n5o/x86/CMakeFiles/edit_cache.dir

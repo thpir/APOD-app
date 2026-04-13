@@ -1,0 +1,20 @@
+                    -H/Users/thijspirmez/Development/flutter/packages/flutter_tools/gradle/src/main/groovy
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=24
+-DANDROID_PLATFORM=android-24
+-DANDROID_ABI=x86
+-DCMAKE_ANDROID_ARCH_ABI=x86
+-DANDROID_NDK=/Users/thijspirmez/Library/Android/sdk/ndk/25.1.8937393
+-DCMAKE_ANDROID_NDK=/Users/thijspirmez/Library/Android/sdk/ndk/25.1.8937393
+-DCMAKE_TOOLCHAIN_FILE=/Users/thijspirmez/Library/Android/sdk/ndk/25.1.8937393/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/Users/thijspirmez/Library/Android/sdk/cmake/3.18.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/APOD-app/apod/build/app/intermediates/cxx/Debug/405d5n5o/obj/x86
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/APOD-app/apod/build/app/intermediates/cxx/Debug/405d5n5o/obj/x86
+-DCMAKE_BUILD_TYPE=Debug
+-B/Users/thijspirmez/Documents/Prive/Thpir_Development/Projects/APOD-app/apod/android/app/.cxx/Debug/405d5n5o/x86
+-GNinja
+-Wno-dev
+--no-warn-unused-cli
+                    Build command args: []
+                    Version: 2
