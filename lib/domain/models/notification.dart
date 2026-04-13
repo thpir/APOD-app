@@ -19,7 +19,7 @@ class Notification {
     required this.bodyText,
   });
 
-  Notification updateScheduled(bool newStatus) {
+  Notification updateScheduled({required bool newStatus}) {
     Logger().d('Updating notification scheduled status: $newStatus');
     return Notification(
       notificationId: notificationId,

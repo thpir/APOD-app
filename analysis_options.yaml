@@ -1,1 +1,57 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    # Code consistancy rules
+    no_literal_bool_comparisons: true
+    use_key_in_widget_constructors: true
+    unnecessary_lambdas: true
+    unnecessary_getters_setters: true
+    avoid_unnecessary_containers: true
+    avoid_print: true
+    prefer_single_quotes: true
+    always_put_control_body_on_new_line: true
+    avoid_positional_boolean_parameters: true
+    avoid_bool_literals_in_conditional_expressions: true
+    avoid_field_initializers_in_const_classes: true
+    flutter_style_todos: true
+    matching_super_parameters: true
+    leading_newlines_in_multiline_strings: true
+    sort_pub_dependencies: true
+    unnecessary_breaks: true
+    unnecessary_raw_strings: true
+    unnecessary_underscores: true
+    use_named_constants: true
+    use_to_and_as_if_applicable: true
+    # Type safety
+    always_declare_return_types: true
+    avoid_dynamic_calls: true
+    no_runtimeType_toString: true
+    omit_obvious_local_variable_types: true
+    omit_obvious_property_types: true
+    only_throw_errors: true
+    prefer_void_to_null: true
+    use_enums: true
+    use_null_aware_elements: true
+    # Avoiding issues with futures
+    avoid_slow_async_io: true
+    avoid_void_async: true
+    unawaited_futures: true
+    # Immutability rules
+    prefer_const_constructors: true
+    prefer_constructors_over_static_methods: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+    unnecessary_const: true
+    unnecessary_new: true
+    prefer_const_declarations: true

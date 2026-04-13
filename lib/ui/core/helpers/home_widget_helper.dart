@@ -2,8 +2,8 @@ import 'package:apod/domain/models/apod.dart';
 import 'package:home_widget/home_widget.dart';
 
 class HomeWidgetHelper {
-  static String appGroupId = 'apodapp';
-  static String androidWidgetName = 'ApodWidget';
+  static var appGroupId = 'apodapp';
+  static var androidWidgetName = 'ApodWidget';
 
   void updateWidget(Apod newApod) {
     HomeWidget.setAppGroupId(appGroupId);

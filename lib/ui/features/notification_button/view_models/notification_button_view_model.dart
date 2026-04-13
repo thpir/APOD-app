@@ -27,7 +27,7 @@ class NotificationButtonViewModel extends ChangeNotifier {
 
   Future<void> _checkPendingNotifications() async {
     _dailyNotification = _dailyNotification.updateScheduled(
-        await _notificationRepository
+        newStatus: await _notificationRepository
             .checkIfNotificationScheduled(_dailyNotification));
     notifyListeners();
   }
@@ -37,11 +37,11 @@ class NotificationButtonViewModel extends ChangeNotifier {
       Logger().d('Cancelling daily notification');
       await _notificationRepository
           .cancelNotification(_dailyNotification.notificationId);
-      _dailyNotification = _dailyNotification.updateScheduled(false);
+      _dailyNotification = _dailyNotification.updateScheduled(newStatus: false);
     } else {
       Logger().d('Scheduling daily notification');
       await _notificationRepository.scheduleNotification(_dailyNotification);
-      _dailyNotification = _dailyNotification.updateScheduled(true);
+      _dailyNotification = _dailyNotification.updateScheduled(newStatus: true);
     }
     notifyListeners();
   }

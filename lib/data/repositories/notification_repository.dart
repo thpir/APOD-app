@@ -47,11 +47,11 @@ class NotificationRepository implements NotificationInterface {
           );
       return notificationPermissions ?? false;
     } else {
-      final AndroidFlutterLocalNotificationsPlugin androidPlugin =
+      final androidPlugin =
         AndroidFlutterLocalNotificationsPlugin();
-      var scheduleExactAlarms =
+      final scheduleExactAlarms =
           await androidPlugin.requestExactAlarmsPermission();
-      var showNotifications =
+      final showNotifications =
           await androidPlugin.requestNotificationsPermission();
       if (scheduleExactAlarms == true && showNotifications == true) {
         notificationPermissions = true;
@@ -76,10 +76,10 @@ class NotificationRepository implements NotificationInterface {
 
   @override
   Future<bool> checkIfNotificationScheduled(Notification notification) async{
-    List<PendingNotificationRequest> pendingNotificationRequests =
+    final List<PendingNotificationRequest> pendingNotificationRequests =
         await _flutterPlugin.pendingNotificationRequests();
     if (pendingNotificationRequests.isNotEmpty) {
-      for (PendingNotificationRequest pendingNotificationRequest
+      for (final pendingNotificationRequest
           in pendingNotificationRequests) {
         if (pendingNotificationRequest.id == notification.notificationId) {
           return true;
@@ -90,11 +90,11 @@ class NotificationRepository implements NotificationInterface {
   }
 
   Future<void> _initNotificationsPlugin() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
+    const initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const DarwinInitializationSettings initializationSettingsIOS =
+    const initializationSettingsIOS =
         DarwinInitializationSettings();
-    const InitializationSettings initializationSettings =
+    const initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
