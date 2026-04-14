@@ -1,5 +1,3 @@
-import 'package:logger/web.dart';
-
 class Notification {
   final int notificationId;
   final String channelId;
@@ -20,7 +18,6 @@ class Notification {
   });
 
   Notification updateScheduled({required bool newStatus}) {
-    Logger().d('Updating notification scheduled status: $newStatus');
     return Notification(
       notificationId: notificationId,
       channelId: channelId,

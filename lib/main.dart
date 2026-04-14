@@ -1,9 +1,8 @@
 import 'package:apod/data/repositories/apod_api_repository.dart';
 import 'package:apod/data/repositories/image_downloader_repository.dart';
-import 'package:apod/ui/screens/apod/view_model/apod_view_model.dart';
-import 'package:apod/ui/screens/apod/widgets/apod_screen.dart';
-import 'package:apod/ui/screens/apod_image_detail/view_model/apod_image_detail_view_model.dart';
-import 'package:apod/ui/screens/apod_image_detail/widgets/apod_image_detail_screen.dart';
+import 'package:apod/ui/providers/apod_provider.dart';
+import 'package:apod/ui/screens/apod_image_detail_screen.dart';
+import 'package:apod/ui/screens/apod_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,20 +15,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final apodRepository = ApodApiRepository();
-    final imageDownloaderRepository = ImageDownloaderRepository();
-
-    return MaterialApp(
-      home: ChangeNotifierProvider(
-          create: (context) => ApodViewModel(apodRepository: apodRepository),
-          child: const ApodScreen()),
-      routes: {
-        ApodImageDetailScreen.routeName: (context) => Provider(
-              create: (context) => ApodImageDetailViewModel(
-                  imageDownloaderRepository: imageDownloaderRepository),
-              child: const ApodImageDetailScreen(),
-            ),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ApodProvider(
+        apodRepository: ApodApiRepository(),
+        imageDownloaderRepository: ImageDownloaderRepository(),
+      ),
+      child: MaterialApp(
+        home: const ApodScreen(),
+        routes: {
+          ApodImageDetailScreen.routeName: (context) =>
+              const ApodImageDetailScreen(),
+        },
+      ),
     );
   }
 }

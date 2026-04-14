@@ -1,106 +1,37 @@
-import 'dart:io';
-
-import 'package:apod/domain/interfaces/notification_interface.dart';
+import 'package:apod/data/services/notification_service.dart';
 import 'package:apod/domain/models/notification.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:apod/domain/use_cases/notification_interface.dart';
 import 'package:logger/web.dart';
 
 class NotificationRepository implements NotificationInterface {
-  final FlutterLocalNotificationsPlugin _flutterPlugin;
+  final NotificationService _service;
 
-  NotificationRepository(FlutterLocalNotificationsPlugin? flutterPlugin)
-      : _flutterPlugin = flutterPlugin ?? FlutterLocalNotificationsPlugin() {
-    _initNotificationsPlugin();
-  }
+  NotificationRepository({NotificationService? service})
+      : _service = service ?? NotificationService();
 
   @override
   Future<void> cancelNotification(int id) async {
-    await _flutterPlugin.cancel(id);
+    await _service.cancel(id);
   }
 
   @override
   Future<void> scheduleNotification(Notification notification) async {
-    if (await _canScheduleNotifications()) {
-      Logger().d('Scheduling notification with id: ${notification.notificationId}');
-      await _flutterPlugin.periodicallyShow(
-        notification.notificationId,
-        notification.title,
-        notification.bodyText,
-        RepeatInterval.daily,
-        _notificationDetails(notification),
-        androidScheduleMode: AndroidScheduleMode.alarmClock,);
-    } else {
+    if (!await _service.requestPermissions()) {
       throw Exception('Notification permissions not granted');
     }
-  }
-
-  Future<bool> _canScheduleNotifications() async {
-    bool? notificationPermissions;
-    if (Platform.isIOS) {
-      notificationPermissions = await _flutterPlugin
-          .resolvePlatformSpecificImplementation<
-              MacOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
-      return notificationPermissions ?? false;
-    } else {
-      final androidPlugin =
-        AndroidFlutterLocalNotificationsPlugin();
-      final scheduleExactAlarms =
-          await androidPlugin.requestExactAlarmsPermission();
-      final showNotifications =
-          await androidPlugin.requestNotificationsPermission();
-      if (scheduleExactAlarms == true && showNotifications == true) {
-        notificationPermissions = true;
-      } 
-      Logger().d('Notification permissions for android granted: ${notificationPermissions ??  false}');
-      return notificationPermissions ?? false;
-    }
-  }
-
-  NotificationDetails _notificationDetails(Notification notification) {
-    return NotificationDetails(
-      android: AndroidNotificationDetails(
-        notification.channelId,
-        notification.channelName,
-        importance: Importance.max,
-        priority: Priority.high,
-        channelDescription: notification.channelDescription,
-        icon: '@mipmap/ic_launcher',
-      ),
+    Logger().d('Scheduling notification with id: ${notification.notificationId}');
+    await _service.scheduleDaily(
+      id: notification.notificationId,
+      title: notification.title,
+      body: notification.bodyText,
+      channelId: notification.channelId,
+      channelName: notification.channelName,
+      channelDescription: notification.channelDescription,
     );
   }
 
   @override
-  Future<bool> checkIfNotificationScheduled(Notification notification) async{
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-        await _flutterPlugin.pendingNotificationRequests();
-    if (pendingNotificationRequests.isNotEmpty) {
-      for (final pendingNotificationRequest
-          in pendingNotificationRequests) {
-        if (pendingNotificationRequest.id == notification.notificationId) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  Future<void> _initNotificationsPlugin() async {
-    const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const initializationSettingsIOS =
-        DarwinInitializationSettings();
-    const initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
-    await _flutterPlugin.initialize(
-      initializationSettings,
-    );
+  Future<bool> checkIfNotificationScheduled(Notification notification) async {
+    return _service.isPending(notification.notificationId);
   }
 }

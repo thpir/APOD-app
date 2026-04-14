@@ -1,5 +1,5 @@
 import 'package:apod/ui/core/widgets/messages.dart';
-import 'package:apod/ui/features/notification_button/view_models/notification_button_view_model.dart';
+import 'package:apod/ui/providers/notification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,8 +8,8 @@ class NotificationButtonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final watch = context.watch<NotificationButtonViewModel>();
-    final read = context.read<NotificationButtonViewModel>();
+    final watch = context.watch<NotificationProvider>();
+    final read = context.read<NotificationProvider>();
     return IconButton(
         onPressed: () async {
           try {

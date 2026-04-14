@@ -1,27 +1,17 @@
-import 'dart:convert';
-
 import 'package:apod/data/models/apod_api.dart';
+import 'package:apod/data/services/apod_api_service.dart';
 import 'package:apod/domain/models/apod.dart';
-import 'package:apod/domain/interfaces/apod_interface.dart';
-import 'package:apod/env/env.dart';
-import 'package:http/http.dart' as http;
+import 'package:apod/domain/use_cases/apod_interface.dart';
 
 class ApodApiRepository implements ApodInterface {
-  final http.Client _client;
-  final String apiKey = Env.key1;
+  final ApodApiService _service;
 
-  ApodApiRepository({http.Client? client})
-      : _client = client ?? http.Client();
+  ApodApiRepository({ApodApiService? service})
+      : _service = service ?? ApodApiService();
 
   @override
   Future<Apod> fetchApod() async {
-    final response = await _client
-        .get(Uri.parse('https://api.nasa.gov/planetary/apod?api_key=$apiKey'))
-        .timeout(const Duration(seconds: 10), onTimeout: () => throw Exception('Request timed out'));
-    if (response.statusCode == 200) {
-      return ApodApi.toDomain(json.decode(response.body));
-    } else {
-      throw Exception('API request failed: ${response.statusCode}');
-    }
+    final json = await _service.fetchApod();
+    return ApodApi.toDomain(json);
   }
 }

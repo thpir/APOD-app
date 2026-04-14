@@ -1,16 +1,14 @@
-import 'package:apod/data/repositories/notification_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:apod/domain/models/notification.dart' as model;
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:apod/domain/use_cases/notification_interface.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-class NotificationButtonViewModel extends ChangeNotifier {
-  final NotificationRepository _notificationRepository;
+class NotificationProvider extends ChangeNotifier {
+  final NotificationInterface _notificationRepository;
   late model.Notification _dailyNotification;
 
-  NotificationButtonViewModel({NotificationRepository? notificationRepository})
-      : _notificationRepository = notificationRepository ??
-            NotificationRepository(FlutterLocalNotificationsPlugin()) {
+  NotificationProvider({required NotificationInterface notificationRepository})
+      : _notificationRepository = notificationRepository {
     _dailyNotification = model.Notification(
         notificationId: 0,
         channelId: 'daily_apod_notif',

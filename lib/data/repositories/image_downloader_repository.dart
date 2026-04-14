@@ -1,44 +1,22 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:http/http.dart' as http;
+import 'package:apod/data/services/image_downloader_service.dart';
+import 'package:apod/domain/use_cases/image_downloader_interface.dart';
 import 'package:path/path.dart' as path;
 
-typedef DirectoryPicker = Future<String?> Function();
-typedef FileWriter = Future<void> Function(String path, List<int> bytes);
+class ImageDownloaderRepository implements ImageDownloaderInterface {
+  final ImageDownloaderService _service;
 
-class ImageDownloaderRepository {
-  final http.Client _client;
-  final DirectoryPicker _directoryPicker;
-  final FileWriter _fileWriter;
+  ImageDownloaderRepository({ImageDownloaderService? service})
+      : _service = service ?? ImageDownloaderService();
 
-  ImageDownloaderRepository({
-    http.Client? client,
-    DirectoryPicker? directoryPicker,
-    FileWriter? fileWriter,
-  })  : _fileWriter = fileWriter ??
-            ((path, bytes) async {
-              await File(path).writeAsBytes(bytes);
-            }),
-        _directoryPicker = directoryPicker ??
-            (() async {
-              return await FilePicker.platform.getDirectoryPath();
-            }),
-        _client = client ?? http.Client();
-
+  @override
   Future<void> downloadAndSaveImage(String imageUrl) async {
-    final response = await _client.get(Uri.parse(imageUrl));
-    final regex = RegExp(r'^2\d{2}$');
-    if (!regex.hasMatch(response.statusCode.toString())) {
-      throw Exception('Failed to download image');
-    }
+    final bytes = await _service.downloadBytes(imageUrl);
 
-    final String? directory = await _directoryPicker();
+    final directory = await _service.pickDirectory();
     if (directory == null) {
       throw Exception('No directory selected');
     }
 
-    final filePath = path.join(directory, path.basename(imageUrl));
-    await _fileWriter(filePath, response.bodyBytes);
+    await _service.saveFile(directory, path.basename(imageUrl), bytes);
   }
 }
