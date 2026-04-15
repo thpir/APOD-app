@@ -3,6 +3,7 @@ import 'package:apod/data/repositories/image_downloader_repository.dart';
 import 'package:apod/ui/providers/apod_provider.dart';
 import 'package:apod/ui/screens/apod_image_detail_screen.dart';
 import 'package:apod/ui/screens/apod_screen.dart';
+import 'package:apod/ui/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +22,9 @@ class MainApp extends StatelessWidget {
         imageDownloaderRepository: ImageDownloaderRepository(),
       ),
       child: MaterialApp(
-        home: const ApodScreen(),
+        home: const HomeScreen(),
         routes: {
+          ApodScreen.routeName: (context) => const ApodScreen(),
           ApodImageDetailScreen.routeName: (context) =>
               const ApodImageDetailScreen(),
         },

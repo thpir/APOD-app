@@ -15,7 +15,7 @@ class ApodScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'APOD app',
+          'APOD',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [

@@ -38,6 +38,7 @@ flutter:
 
   assets:
     - assets/animations/
+    - assets/launcher_icon/android/res/mipmap-xxxhdpi/
 
 flutter_launcher_icons:
   image_path: "assets/launcher_icon/android/play_store_512.png"

@@ -19,13 +19,7 @@ class ApodImageDetailScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        foregroundColor: Colors.white,
         actions: [
           isDownloading
               ? const Padding(
