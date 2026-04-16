@@ -8,6 +8,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const Padding(
+          padding: EdgeInsets.all(12.0),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/launcher_icon/launcher_icon.png'),
+                fit: BoxFit.cover,
+              ),
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+        title: const Text('Cosmos App'),
+      ),
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
@@ -27,42 +42,48 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.pushNamed(context, ApodScreen.routeName);
                       },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          image: const DecorationImage(
-                            image: AssetImage('assets/images/stars.png'),
-                            fit: BoxFit.cover,
-                          ),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        alignment: Alignment.center,
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: Text(
-                                'APOD',
-                                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            image: const DecorationImage(
+                              image: AssetImage('assets/images/stars.png'),
+                              fit: BoxFit.cover,
                             ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                            // borderRadius: BorderRadius.circular(4),
+                          ),
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: [
+                              Center(
                                 child: Text(
-                                  'Astronomy Picture of the Day',
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  'APOD',
+                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                                     color: Theme.of(context).colorScheme.onSurface,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Astronomy Picture of the Day',
+                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                      color: Theme.of(context).colorScheme.onSurface,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -6,6 +6,7 @@ import 'package:apod/ui/screens/apod_screen.dart';
 import 'package:apod/ui/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 
 void main() {
   runApp(const MainApp());
@@ -21,12 +22,9 @@ class MainApp extends StatelessWidget {
         apodRepository: ApodApiRepository(),
         imageDownloaderRepository: ImageDownloaderRepository(),
       ),
-      child: MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xFF060940),
-                brightness: Brightness.dark,
-              ),
+      child: shadcn.ShadcnApp(
+        theme: const shadcn.ThemeData(
+          colorScheme: shadcn.ColorSchemes.darkSlate,
         ),
         home: const HomeScreen(),
         routes: {
