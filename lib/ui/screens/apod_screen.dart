@@ -18,6 +18,7 @@ class ApodScreen extends StatelessWidget {
           'APOD',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         actions: [
           ChangeNotifierProvider(
             create: (_) => NotificationProvider(notificationRepository: NotificationRepository()),

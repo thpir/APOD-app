@@ -22,6 +22,12 @@ class MainApp extends StatelessWidget {
         imageDownloaderRepository: ImageDownloaderRepository(),
       ),
       child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color(0xFF060940),
+                brightness: Brightness.dark,
+              ),
+        ),
         home: const HomeScreen(),
         routes: {
           ApodScreen.routeName: (context) => const ApodScreen(),

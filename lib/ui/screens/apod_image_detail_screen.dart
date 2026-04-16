@@ -1,3 +1,4 @@
+import 'package:apod/ui/core/widgets/cosmos_waiting_indicator.dart';
 import 'package:apod/ui/core/widgets/messages.dart';
 import 'package:apod/ui/features/apod_image_detail/widgets/apod_image_detail_view.dart';
 import 'package:apod/ui/providers/apod_provider.dart';
@@ -24,11 +25,10 @@ class ApodImageDetailScreen extends StatelessWidget {
           isDownloading
               ? const Padding(
                   padding: EdgeInsets.all(12.0),
-                  child: SizedBox.square(
-                    dimension: 24,
-                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3,)
-                  ),
-                )
+                  child: CosmosWaitingIndicator(
+                    color: Colors.white,
+                    size: 24,
+                  ))
               : IconButton(
                   icon: const Icon(Icons.download_rounded, color: Colors.white),
                   onPressed: () async {
@@ -37,7 +37,8 @@ class ApodImageDetailScreen extends StatelessWidget {
                           .read<ApodProvider>()
                           .downloadImage(args.imageUrl);
                       if (context.mounted) {
-                        showSuccesSnackbar('Image downloaded succesfully', context);
+                        showSuccesSnackbar(
+                            'Image downloaded succesfully', context);
                       }
                     } catch (e) {
                       if (context.mounted) {

@@ -1,6 +1,6 @@
 import 'package:apod/domain/models/apod.dart';
+import 'package:apod/ui/core/widgets/cosmos_waiting_indicator.dart';
 import 'package:apod/ui/core/widgets/error_view.dart';
-import 'package:apod/ui/core/widgets/waiting_view.dart';
 import 'package:apod/ui/features/apod/widgets/apod_result_view.dart';
 import 'package:apod/ui/providers/apod_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,12 @@ class ApodWidget extends StatelessWidget {
         } else if (snapshot.hasData) {
           return ApodResultView(apod: snapshot.data!);
         } else {
-          return const WaitingView();
+          return Center(
+            child: CosmosWaitingIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              size: 60,
+            ),
+          );
         }
       },
     );
