@@ -11,9 +11,13 @@ class ApodApiService {
       : _client = client ?? http.Client(),
         _apiKey = apiKey ?? Env.key1;
 
-  Future<Map<String, dynamic>> fetchApod() async {
+  Future<Map<String, dynamic>> fetchApod({DateTime? date}) async {
+    final dateParam = date != null
+        ? '&date=${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}'
+        : '';
     final response = await _client
-        .get(Uri.parse('https://api.nasa.gov/planetary/apod?api_key=$_apiKey'))
+        .get(Uri.parse(
+            'https://api.nasa.gov/planetary/apod?api_key=$_apiKey$dateParam'))
         .timeout(
           const Duration(seconds: 30),
           onTimeout: () => throw Exception('Request timed out'),

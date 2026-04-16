@@ -1,4 +1,3 @@
-import 'package:apod/ui/core/widgets/cosmos_waiting_indicator.dart';
 import 'package:apod/ui/screens/apod_screen.dart';
 import 'package:flutter/material.dart';
 

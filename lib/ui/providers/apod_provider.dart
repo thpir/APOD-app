@@ -31,6 +31,11 @@ class ApodProvider extends ChangeNotifier {
     } catch (_) {}
   }
 
+  Future<void> fetchApodByDate(DateTime date) async {
+    apodFuture = _apodRepository.fetchApodByDate(date);
+    notifyListeners();
+  }
+
   Future<void> downloadImage(String imageUrl) async {
     _isDownloading = true;
     notifyListeners();

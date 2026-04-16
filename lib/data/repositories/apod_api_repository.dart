@@ -14,4 +14,10 @@ class ApodApiRepository implements ApodInterface {
     final json = await _service.fetchApod();
     return ApodApi.toDomain(json);
   }
+
+  @override
+  Future<Apod> fetchApodByDate(DateTime date) async {
+    final json = await _service.fetchApod(date: date);
+    return ApodApi.toDomain(json);
+  }
 }
