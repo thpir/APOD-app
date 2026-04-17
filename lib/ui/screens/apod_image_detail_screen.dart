@@ -37,12 +37,12 @@ class ApodImageDetailScreen extends StatelessWidget {
                           .read<ApodProvider>()
                           .downloadImage(args.imageUrl);
                       if (context.mounted) {
-                        showSuccesSnackbar(
-                            'Image downloaded succesfully', context);
+                        showSuccessToast(
+                            'Image downloaded successfully', context);
                       }
                     } catch (e) {
                       if (context.mounted) {
-                        showErrorSnackbar('Failed to download image.', context);
+                        showErrorToast('Failed to download image.', context);
                       }
                     }
                   },

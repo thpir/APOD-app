@@ -9,7 +9,7 @@ class ApodApiService {
 
   ApodApiService({http.Client? client, String? apiKey})
       : _client = client ?? http.Client(),
-        _apiKey = apiKey ?? Env.key1;
+        _apiKey = apiKey ?? Env.apodApiKey;
 
   Future<Map<String, dynamic>> fetchApod({DateTime? date}) async {
     final dateParam = date != null

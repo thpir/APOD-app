@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 
-void showSuccesSnackbar(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message),
-      duration: const Duration(seconds: 2),
+void showSuccessToast(String message, BuildContext context) {
+  shadcn.showToast(
+    context: context,
+    builder: (context, overlay) => shadcn.Alert(
+      leading: const Icon(Icons.check_circle_outline),
+      title: Text(message),
     ),
   );
 }
 
-void showErrorSnackbar(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onErrorContainer,
-        ),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.errorContainer,
-      duration: const Duration(seconds: 2),
+void showErrorToast(String message, BuildContext context) {
+  shadcn.showToast(
+    context: context,
+    builder: (context, overlay) => shadcn.Alert.destructive(
+      leading: const Icon(Icons.error_outline),
+      title: Text(message),
     ),
   );
 }

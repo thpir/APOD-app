@@ -1,5 +1,8 @@
 import 'package:apod/ui/screens/apod_screen.dart';
+import 'package:apod/ui/screens/news_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
+
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -33,67 +36,116 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 8,
                 children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxHeight: 300,
-                      maxWidth: 600),
-                    child: InkWell(
-                      onTap: () {
+                  _RowConstraints(
+                    child: _HomeTile(
+                      cardNavigation: () {
                         Navigator.pushNamed(context, ApodScreen.routeName);
                       },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/images/stars.png'),
-                              fit: BoxFit.cover,
+                      imagePath: 'assets/images/dawn_of_a_sunlike_star.png',
+                      centerChild: Text(
+                        'APOD',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
                             ),
-                            // borderRadius: BorderRadius.circular(4),
-                          ),
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Text(
-                                  'APOD',
-                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Astronomy Picture of the Day',
-                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurface,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
+                      tileTitle: 'Astronomy Picture of the Day',
                     ),
                   ),
+                  _RowConstraints(
+                    child: _HomeTile(
+                      cardNavigation: () {
+                        Navigator.pushNamed(context, NewsScreen.routeName);
+                      }, 
+                      tileTitle: 'Space News',
+                      imagePath: 'assets/images/starburst_galaxy _ngc_1569.png',
+                      centerChild: Icon(
+                        Icons.newspaper_outlined,
+                        size: 48,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _HomeTile extends StatelessWidget {
+  final VoidCallback cardNavigation;
+  final String? imagePath;
+  final Widget? centerChild;
+  final String tileTitle;
+  const _HomeTile({
+    required this.cardNavigation,
+    this.imagePath,
+    this.centerChild,
+    required this.tileTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: cardNavigation,
+      child: shadcn.Card(
+        padding: EdgeInsets.zero,
+        borderRadius: BorderRadius.circular(4),
+        filled: true,
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: imagePath != null
+                ? DecorationImage(
+                    image: AssetImage(imagePath!),
+                    fit: BoxFit.cover,
+                  )
+                : null,
+          ),
+          alignment: Alignment.center,
+          child: Stack(
+            children: [
+              Center(child: centerChild),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    tileTitle,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RowConstraints extends StatelessWidget {
+  final Widget? child;
+  const _RowConstraints({this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 300, maxWidth: 600),
+      child: child,
     );
   }
 }

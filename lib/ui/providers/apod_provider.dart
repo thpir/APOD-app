@@ -1,3 +1,5 @@
+import 'package:apod/data/repositories/apod_api_repository.dart';
+import 'package:apod/data/repositories/image_downloader_repository.dart';
 import 'package:apod/domain/models/apod.dart';
 import 'package:apod/domain/use_cases/apod_interface.dart';
 import 'package:apod/domain/use_cases/image_downloader_interface.dart';
@@ -13,10 +15,10 @@ class ApodProvider extends ChangeNotifier {
   bool get isDownloading => _isDownloading;
 
   ApodProvider({
-    required ApodInterface apodRepository,
-    required ImageDownloaderInterface imageDownloaderRepository,
-  })  : _apodRepository = apodRepository,
-        _imageDownloaderRepository = imageDownloaderRepository {
+    ApodInterface? apodRepository,
+    ImageDownloaderInterface? imageDownloaderRepository,
+  })  : _apodRepository = apodRepository ?? ApodApiRepository(),
+        _imageDownloaderRepository = imageDownloaderRepository ?? ImageDownloaderRepository() {
     fetchApod();
   }
 

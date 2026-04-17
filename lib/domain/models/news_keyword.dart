@@ -1,0 +1,43 @@
+enum NewsKeyword {
+  space('space'),
+  astronomy('astronomy'),
+  nasa('NASA'),
+  spaceX('SpaceX'),
+  esa('ESA'),
+  artemis('Artemis'),
+  spaceship('spaceship'),
+  rocketLaunch('rocket launch'),
+  astronaut('astronaut'),
+  spacewalk('spacewalk'),
+  internationalSpaceStation('International Space Station'),
+  lunarMission('lunar mission'),
+  marsRover('Mars rover'),
+  deepSpaceExploration('deep space exploration'),
+  telescope('telescope'),
+  jamesWebb('James Webb'),
+  hubble('Hubble'),
+  exoplanet('exoplanet'),
+  blackHole('black hole'),
+  neutronStar('neutron star'),
+  supernova('supernova'),
+  nebula('nebula'),
+  galaxy('galaxy'),
+  darkMatter('dark matter'),
+  gravitationalWave('gravitational wave'),
+  cosmicRay('cosmic ray'),
+  solarFlare('solar flare'),
+  asteroid('asteroid'),
+  comet('comet'),
+  satellite('satellite'),
+  spaceDebris('space debris'),
+  astrobiology('astrobiology'),
+  spaceExploration('space exploration'),
+  orbit('orbit'),
+  cosmos('cosmos'),
+  universe('universe'),
+  spacecraft('spacecraft');
+
+  const NewsKeyword(this.keyword);
+
+  final String keyword;
+}
