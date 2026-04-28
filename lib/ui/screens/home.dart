@@ -1,4 +1,5 @@
 import 'package:apod/ui/screens/apod_screen.dart';
+import 'package:apod/ui/screens/ar_solar_screen.dart';
 import 'package:apod/ui/screens/news_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
@@ -58,17 +59,38 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   _RowConstraints(
-                    child: _HomeTile(
-                      cardNavigation: () {
-                        Navigator.pushNamed(context, NewsScreen.routeName);
-                      }, 
-                      tileTitle: 'Space News',
-                      imagePath: 'assets/images/starburst_galaxy _ngc_1569.png',
-                      centerChild: Icon(
-                        Icons.newspaper_outlined,
-                        size: 48,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        Expanded(
+                          child: _HomeTile(
+                            cardNavigation: () {
+                              Navigator.pushNamed(context, NewsScreen.routeName);
+                            }, 
+                            tileTitle: 'Space News',
+                            imagePath: 'assets/images/starburst_galaxy_ngc_1569.png',
+                            centerChild: Icon(
+                              Icons.newspaper_outlined,
+                              size: 48,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: _HomeTile(
+                            cardNavigation: () {
+                              Navigator.pushNamed(context, ArSolarScreen.routeName);
+                            }, 
+                            tileTitle: 'AR Solar System',
+                            imagePath: 'assets/images/sbh_in_early_universe.png',
+                            centerChild: Icon(
+                              Icons.view_in_ar_outlined,
+                              size: 48,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -119,13 +141,17 @@ class _HomeTile extends StatelessWidget {
               Center(child: centerChild),
               Align(
                 alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    tileTitle,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
+                child: Container(
+                  width: double.infinity,
+                  color: Colors.black.withAlpha(80),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      tileTitle,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
                   ),
                 ),
               ),

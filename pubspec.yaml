@@ -1,7 +1,7 @@
 name: apod
 description: "Receive the daily astronomy picture of the day."
 publish_to: 'none'
-version: 2.5.0+6
+version: 2.6.0+7
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -12,6 +12,7 @@ dependencies:
   file_picker: ^10.3.2
   flutter:
     sdk: flutter
+  flutter_inappwebview: ^6.1.5
   flutter_launcher_icons: ^0.14.4
   flutter_local_notifications: ^19.4.1
   home_widget: ^0.8.0
@@ -21,10 +22,10 @@ dependencies:
   path: ^1.9.0
   permission_handler: ^12.0.1
   provider: ^6.1.2
-  shared_preferences: ^2.3.5
-  url_launcher: ^6.3.1
   shadcn_flutter: ^0.0.52
+  shared_preferences: ^2.3.5
   timezone: ^0.10.1
+  url_launcher: ^6.3.1
   youtube_player_iframe: ^5.1.2
 
 dev_dependencies:
@@ -40,7 +41,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/animations/
     - assets/launcher_icon/
     - assets/images/
 

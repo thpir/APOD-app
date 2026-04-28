@@ -2,6 +2,7 @@ import 'package:apod/ui/providers/apod_provider.dart';
 import 'package:apod/ui/providers/news_provider.dart';
 import 'package:apod/ui/screens/apod_image_detail_screen.dart';
 import 'package:apod/ui/screens/apod_screen.dart';
+import 'package:apod/ui/screens/ar_solar_screen.dart';
 import 'package:apod/ui/screens/home.dart';
 import 'package:apod/ui/screens/news_article_screen.dart';
 import 'package:apod/ui/screens/news_keywords_screen.dart';
@@ -36,6 +37,7 @@ class MainApp extends StatelessWidget {
           NewsScreen.routeName: (_) => const NewsScreen(),
           NewsKeywordsScreen.routeName: (_) => const NewsKeywordsScreen(),
           NewsArticleScreen.routeName: (_) => const NewsArticleScreen(),
+          ArSolarScreen.routeName: (_) => const ArSolarScreen(),
         },
       ),
     );
